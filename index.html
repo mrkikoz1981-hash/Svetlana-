@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090909">
+  <title>С днём рождения, Светлана Константиновна!</title>
+  <style>
+    :root { --gold:#e8c879; --gold2:#b88a35; --cream:#fff4d9; --muted:#c9bfa9; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0; min-height:100vh; color:var(--cream);
+      font-family: Georgia, 'Times New Roman', serif;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(168,123,45,.18), transparent 42%),
+        radial-gradient(ellipse at 10% 70%, rgba(130,89,25,.10), transparent 35%),
+        #090909;
+      overflow-x:hidden;
+    }
+    .grain { position:fixed; inset:0; pointer-events:none; opacity:.09; z-index:0;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E"); }
+    .sparkles { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+    .spark { position:absolute; width:3px; height:3px; border-radius:50%; background:var(--gold);
+      box-shadow:0 0 10px 2px rgba(232,200,121,.65); animation:float 8s linear infinite; opacity:0; }
+    @keyframes float { 0%{transform:translateY(20px) scale(.5);opacity:0} 15%{opacity:.8} 85%{opacity:.5} 100%{transform:translateY(-110vh) scale(1.2);opacity:0} }
+    main { position:relative; z-index:1; width:min(900px, 92%); margin:auto; }
+    .hero { min-height:100svh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:70px 12px 55px; }
+    .eyebrow { color:var(--gold); text-transform:uppercase; letter-spacing:.34em; font:11px Arial,sans-serif; }
+    .ornament { color:var(--gold2); font-size:23px; letter-spacing:.5em; margin:24px 0; }
+    h1 { margin:0; font-size:clamp(38px,8vw,76px); line-height:1.08; font-weight:normal; color:var(--gold); text-shadow:0 0 28px rgba(211,166,77,.2); }
+    .subtitle { margin:22px 0 0; font-size:clamp(17px,3.5vw,23px); color:#eee2c6; line-height:1.6; }
+    .gold-line { width:110px; height:1px; margin:30px auto; background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+    button { border:1px solid var(--gold2); color:#17120a; background:linear-gradient(135deg,#f5df9f,#bd8d3c); border-radius:999px; padding:15px 28px; font: bold 12px Arial,sans-serif; letter-spacing:.13em; text-transform:uppercase; cursor:pointer; box-shadow:0 8px 30px rgba(184,138,53,.18); transition:transform .25s,box-shadow .25s; }
+    button:hover { transform:translateY(-3px); box-shadow:0 12px 34px rgba(184,138,53,.3); }
+    .hint { margin-top:15px; color:#9f957f; font:11px Arial,sans-serif; letter-spacing:.08em; }
+    .section { padding:50px 0 85px; text-align:center; }
+    .card { position:relative; max-width:720px; margin:auto; padding:clamp(26px,6vw,55px); border:1px solid rgba(215,177,97,.42); background:linear-gradient(145deg,rgba(31,27,20,.88),rgba(13,13,13,.94)); box-shadow:0 25px 90px rgba(0,0,0,.45), inset 0 0 45px rgba(194,148,62,.035); }
+    .card:before,.card:after { content:"✦"; position:absolute; color:var(--gold); font-size:17px; }
+    .card:before { top:13px; left:17px; } .card:after { bottom:13px; right:17px; }
+    h2 { color:var(--gold); font-weight:normal; font-size:clamp(28px,5vw,42px); margin:0 0 24px; }
+    .message { color:#e9dfc9; font-size:clamp(17px,2.7vw,20px); line-height:1.9; white-space:pre-line; }
+    .signature { margin-top:30px; color:var(--gold); font-size:23px; font-style:italic; }
+    .closing { padding:20px 0 75px; text-align:center; }
+    .closing p { color:#c9bfa9; line-height:1.8; font-size:17px; }
+    .heart { color:var(--gold); font-size:26px; animation:pulse 1.8s ease-in-out infinite; }
+    @keyframes pulse { 50%{transform:scale(1.18);text-shadow:0 0 18px var(--gold)} }
+    #letter { display:none; animation:reveal 1.2s ease both; }
+    #letter.show { display:block; }
+    @keyframes reveal { from{opacity:0;transform:translateY(25px)} to{opacity:1;transform:translateY(0)} }
+    footer { text-align:center; padding:0 0 30px; color:#756b58; font:10px Arial,sans-serif; letter-spacing:.15em; }
+    @media (prefers-reduced-motion: reduce) { *,*:before,*:after { animation-duration:.01ms!important; scroll-behavior:auto!important; } }
+  </style>
+</head>
+<body>
+  <div class="grain"></div><div class="sparkles" id="sparkles"></div>
+  <main>
+    <section class="hero">
+      <div class="eyebrow">Особенный день • Особенный человек</div>
+      <div class="ornament">✧ ─── ✧</div>
+      <h1>С днём рождения,<br>Светлана Константиновна!</h1>
+      <div class="gold-line"></div>
+      <p class="subtitle">Сегодня хочется сказать Вам<br>самые тёплые и искренние слова.</p>
+      <div class="ornament">✦</div>
+      <button id="openLetter">Открыть поздравление</button>
+      <div class="hint">НЕБОЛЬШОЙ ПОДАРОК ОТ ВСЕГО СЕРДЦА</div>
+    </section>
+
+    <section class="section" id="letter">
+      <div class="card">
+        <div class="eyebrow" style="margin-bottom:18px">С любовью и благодарностью</div>
+        <h2>Дорогая крёстная!</h2>
+        <div class="message">От всей души поздравляю Вас с днём рождения!
+
+Хочу пожелать Вам крепкого здоровья, душевного спокойствия, искренней радости и как можно больше счастливых моментов. Пусть каждый новый день приносит хорошие новости, улыбки и поводы для гордости.
+
+Спасибо Вам за Вашу доброту, заботу и тепло. Пусть рядом всегда будут люди, которые ценят Вас, уважают и отвечают Вам такой же искренностью.
+
+Желаю, чтобы все добрые желания находили дорогу к исполнению, в доме всегда царили уют и благополучие, а в сердце было светло и спокойно.
+
+Пусть годы приносят только мудрость, приятные воспоминания и новые поводы улыбаться. Вы заслуживаете самого доброго!</div>
+        <div class="signature">С днём рождения! ❤️</div>
+      </div>
+    </section>
+
+    <section class="closing" id="closing" style="display:none">
+      <div class="heart">✦</div>
+      <p>Пусть в Вашей жизни всегда будет место<br>для счастья, любви и маленьких чудес.</p>
+      <div class="ornament">✧ ✧ ✧</div>
+      <p style="color:var(--gold);font-style:italic">С теплом — Ваш крестник.</p>
+    </section>
+  </main>
+  <footer>СОЗДАНО С ТЕПЛОМ И ОТ ВСЕГО СЕРДЦА</footer>
+  <script>
+    const layer = document.getElementById('sparkles');
+    for (let i=0;i<42;i++) {
+      const s=document.createElement('i'); s.className='spark';
+      s.style.left=Math.random()*100+'%';
+      s.style.top=(45+Math.random()*65)+'%';
+      s.style.animationDelay=(Math.random()*9)+'s';
+      s.style.animationDuration=(6+Math.random()*8)+'s';
+      s.style.transform=`scale(${.5+Math.random()})`;
+      layer.appendChild(s);
+    }
+    document.getElementById('openLetter').addEventListener('click',()=>{
+      const letter=document.getElementById('letter');
+      const closing=document.getElementById('closing');
+      letter.classList.add('show'); closing.style.display='block';
+      document.getElementById('openLetter').textContent='Поздравление открыто';
+      document.getElementById('openLetter').disabled=true;
+      setTimeout(()=>letter.scrollIntoView({behavior:'smooth',block:'center'}),120);
+    });
+  </script>
+</body>
+</html>
